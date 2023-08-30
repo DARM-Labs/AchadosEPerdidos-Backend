@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=root 
+      - MYSQL_DATABASE=achadoseperdidos
+    ports:
+      - "3306:3306"
+  spring-boot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring_boot_app
+    environment:
+      - DATABASE_HOST=mariadb
+      - DATABASE_PORT=3306
+      - DATABASE_NAME=achadoseperdidos
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=root 
+    ports:
+      - "8080:8080"
