@@ -15,7 +15,7 @@ public class CommentResponseMapper implements Mapper<Comment, CommentResponseDTO
                         source.getId(),
                         source.getSubject(),
                         source.getUser().getId(),
-                        source.getUser().getUsername(),
+                        source.getUser().getPerson().getName(),
                         source.getDate());
     }
 }
