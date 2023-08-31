@@ -12,6 +12,7 @@ import com.darm.ifce.achadoseperdidos.DTO.thing.ThingResponseDTO;
 import com.darm.ifce.achadoseperdidos.exceptions.ResourceNotFoundException;
 import com.darm.ifce.achadoseperdidos.model.Thing;
 import com.darm.ifce.achadoseperdidos.model.User;
+import com.darm.ifce.achadoseperdidos.model.enums.TypeObject;
 import com.darm.ifce.achadoseperdidos.repository.ThingRepository;
 
 import jakarta.transaction.Transactional;
@@ -45,6 +46,33 @@ public class ThingService {
         return thingRepository.findById(id)
                             .orElseThrow(() -> new ResourceNotFoundException("The user was not found in the database, " +
                             "please check the registered user."));
+    }
+
+    public ThingResponseDTO searchById(Long id){
+        Thing thing = this.findById(id);
+        return new ThingResponseDTO(thing);
+    }
+
+    public List<ThingResponseDTO> findByTypeObjectFound(){
+        List<Thing> things = thingRepository.findAll();
+        List<ThingResponseDTO> listResponse = new ArrayList<>();
+        for (Thing thing : things) {
+            if(thing.getTypeObject().equals(TypeObject.FOUND)){
+                listResponse.add(new ThingResponseDTO(thing));
+            }
+        }
+        return listResponse;
+    }
+
+    public List<ThingResponseDTO> findByTypeObjectLost(){
+        List<Thing> things = thingRepository.findAll();
+        List<ThingResponseDTO> listResponse = new ArrayList<>();
+        for (Thing thing : things) {
+            if(thing.getTypeObject().equals(TypeObject.LOST)){
+                listResponse.add(new ThingResponseDTO(thing));
+            }
+        }
+        return listResponse;
     }
 
     @Transactional

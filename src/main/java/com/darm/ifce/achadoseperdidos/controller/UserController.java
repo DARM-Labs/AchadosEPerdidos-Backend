@@ -68,6 +68,4 @@ public class UserController {
     public ResponseEntity<UserResponse> verficationCode(@RequestBody VerificationCodeDTO code){
         return ResponseEntity.ok().body(this.userService.verificationCode(code));
     }
-
-        
 }
